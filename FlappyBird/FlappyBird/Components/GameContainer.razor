@@ -1,6 +1,34 @@
-﻿<div class="game-container">
+﻿@using FlappyBird.Models
+<div class="game-container">
     <div class="sky">
         <div class="bird"></div>
     </div>
+    @if (_gameManager == null)
+    {
+        <em>Loading...</em>
+    }
+    else
+    {
+        <div class="game-container">
+            <div class="sky">
+                <div class="bird" style="@_birdCss"></div>
+            </div>
+            <div class="ground"></div>
+        </div>
+    }
+
     <div class="ground"></div>
+    
+    @code {
+        GameManager _gameManager { get; set; }
+        string _birdCss => $"bottom: {_gameManager.Bird.DistanceFromBottom}px";
+        protected override void OnInitialized()
+        {
+            _gameManager = new GameManager();
+        }
+        void StartGame()
+        {
+            _gameManager.MainLoop();
+        }
+    }
 </div>
