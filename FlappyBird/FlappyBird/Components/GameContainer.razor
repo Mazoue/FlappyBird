@@ -1,5 +1,5 @@
 ﻿@using FlappyBird.Models
-<div class="game-container">
+<div class="game-container" @onclick="StartGame">
     <div class="sky">
         <div class="bird"></div>
     </div>
@@ -16,7 +16,7 @@
             <div class="ground"></div>
         </div>
     }
-
+    
     <div class="ground"></div>
     
     @code {
@@ -25,10 +25,12 @@
         protected override void OnInitialized()
         {
             _gameManager = new GameManager();
+            _gameManager.PropertyChanged += (o, e) => StateHasChanged();
         }
         void StartGame()
         {
             _gameManager.MainLoop();
+
         }
     }
 </div>
