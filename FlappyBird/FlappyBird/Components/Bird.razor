@@ -1,0 +1,12 @@
+﻿@using FlappyBird.Models
+
+<div class="bird" style="@BirdCss"></div>
+@code {
+    [Parameter] public BirdModel Model { get; set; }
+    string BirdCss => $"bottom: {Model.DistanceFromBottom}px";
+
+    protected override void OnParametersSet()
+    {
+        Model.PropertyChanged += (o, e) => StateHasChanged();
+    }
+}
